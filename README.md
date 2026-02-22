@@ -10,7 +10,7 @@ Guía mínima para dejarlo corriendo en VPS 24/7 con el menor trabajo posible.
 - Si no hay extrema, aplica la regla progresiva (`reglaCaidaProgresiva`) cuando corresponda.
 - Respeta `bloqueoCompraUltimosDias` para detener compras al final del mes por mercado.
 - A la hora `envioUtc`, envía solo los tokens que sí compró ese mismo día a `TO_ACCOUNT`.
-- Propina: es opcional y va al final (`propina.activa`, por defecto en `false`).
+- Propina: envía un porcentaje del monto final a la cuenta del creador para apoyar el proyecto (`propina.activa`, por defecto en `false`).
 
 ## 2) Preparar VPS (Ubuntu)
 
@@ -128,6 +128,7 @@ Luego reparte ese `monto_diario` por `asignacionesMercado`.
 8. **Hora de envío: 00:05 UTC**
 	- Envía solo símbolos que sí compró ese mismo día.
 	- Envía todo a `TO_ACCOUNT`.
+
 
 
 
