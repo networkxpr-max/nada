@@ -51,6 +51,7 @@ Comandos para editar:
 ```bash
 nano .env
 ```
+
 ```bash
 nano config.json
 ```
@@ -130,5 +131,6 @@ Luego reparte ese `monto_diario` por `asignacionesMercado`.
 8. **Hora de envío: 00:05 UTC**
 	- Envía solo símbolos que sí compró ese mismo día.
 	- Envía todo a `TO_ACCOUNT`.
+
 
 
