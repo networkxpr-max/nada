@@ -1,0 +1,69 @@
+{
+  "documentacion": {
+    "apiRaiz": "Dirección de la API del mercado (DEX). Normalmente no necesitas cambiarla.",
+    "endpointsRpc": "Lista de nodos RPC de Proton. El bot usa el primero para consultas de cadena.",
+    "apiBloks": "API usada para leer balances de la cuenta.",
+    "ejecutarInmediatamente": "Si es true, compra al iniciar el bot. Si es false, espera a la hora configurada.",
+    "compraUtc": "Hora diaria (UTC) en la que el bot intenta comprar.",
+    "envioUtc": "Hora diaria (UTC) en la que el bot envía lo comprado.",
+    "esperaLlenadoMercadoMs": "Tiempo de espera (en milisegundos) antes de revisar si una orden se llenó.",
+    "maxReintentosMercado": "Número máximo de intentos de compra por cada mercado.",
+    "asignacionesMercado": "Porcentaje de dinero para cada mercado. La suma total no puede pasar de 100%.",
+    "bloqueoCompraUltimosDias": "Cuántos días al final del mes NO quieres comprar cada mercado. Ejemplo: 8 = no compra en los últimos 8 días. 0 = compra todo el mes.",
+    "reglasCompra": {
+      "general": "Reglas que definen cuándo comprar más si el precio cayó.",
+      "reglaCaidaProgresiva": {
+        "porcentajeActivacion": "Desde qué caída empieza a aumentar compra. Ejemplo: -5.",
+        "pasoPorcentaje": "Cada cuántos puntos de caída sube otro tramo. Ejemplo: 5.",
+        "multiplicadorPorPaso": "Cuánto aumenta por cada tramo. Ejemplo: 2.",
+        "aplicarEnUltimosDiasMes": "true = aplica también al final de mes; false = no aplica en el tramo final.",
+        "diasFinalMes": "Cuántos días finales del mes se consideran tramo final. Ejemplo: 10.",
+        "ejemplo": "Con activación -5, paso 5 y multiplicador 2: -5%=x2, -10%=x4, -15%=x6."
+      },
+      "reglaCaidaExtrema": {
+        "porcentajeActivacion": "Umbral de caída extrema. Ejemplo: -50.",
+        "ejemplo": "Si llega a -50% o menos, usa balance casi completo (reserva 1 XMD)."
+      }
+    },
+    "notaEnvio": "El bot solo envía los símbolos que realmente compró ese mismo día.",
+    "notaPropina": "La lógica de propina fue removida en esta versión."
+  },
+  "apiRaiz": "https://dex.api.mainnet.metalx.com/dex",
+  "endpointsRpc": ["https://rpc.api.mainnet.metalx.com"],
+  "apiBloks": "https://www.api.bloks.io",
+  "ejecutarInmediatamente": false,
+  "compraUtc": {
+    "hour": 0,
+    "minute": 0
+  },
+  "envioUtc": {
+    "hour": 0,
+    "minute": 10
+  },
+  "esperaLlenadoMercadoMs": 3000,
+  "maxReintentosMercado": 3,
+  "asignacionesMercado": {
+    "XPR_XMD": "25%",
+    "LOAN_XMD": "25%",
+    "METAL_XMD": "25%",
+    "XMT_XMD": "25%"
+  },
+  "bloqueoCompraUltimosDias": {
+    "XPR_XMD": 0,
+    "LOAN_XMD": 0,
+    "METAL_XMD": 0,
+    "XMT_XMD": 0
+  },
+  "reglasCompra": {
+    "reglaCaidaProgresiva": {
+      "porcentajeActivacion": -5,
+      "pasoPorcentaje": 5,
+      "multiplicadorPorPaso": 2,
+      "aplicarEnUltimosDiasMes": false,
+      "diasFinalMes": 10
+    },
+    "reglaCaidaExtrema": {
+      "porcentajeActivacion": -50
+    }
+  }
+}

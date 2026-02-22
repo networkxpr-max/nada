@@ -1,0 +1,13 @@
+{
+  "name": "botcomprasyenviar",
+  "version": "1.0.0",
+  "description": "Bot unificado para comprar y enviar tokens en Proton",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@proton/js": "^28.1.2",
+    "dotenv": "^16.4.7"
+  }
+}
