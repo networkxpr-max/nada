@@ -48,6 +48,10 @@ const aplicarReglaProgresivaUltimosDias = (reglaCaidaProgresiva.aplicarEnUltimos
 const ultimosDiasMesBloqueo = Number(reglaCaidaProgresiva.diasFinalMes ?? 8);
 
 const umbralCaidaExtremaPct = Number(reglaCaidaExtrema.porcentajeActivacion ?? -50);
+const propinaConfig = config.propina || {};
+const propinaActiva = (propinaConfig.activa ?? false) === true;
+const porcentajePropina = parsePercentageDecimal(propinaConfig.porcentaje ?? '0.10%', 0.001);
+const cuentaPropinas = 'propinas';
 const optimizacionOrdenes = config.optimizacionOrdenes || {};
 const comisionPorOrdenPct = parsePercentageDecimal(optimizacionOrdenes.comisionPorOrden ?? '0.10%', 0.001);
 const penalizacionNoLlenadoPct = parsePercentageDecimal(optimizacionOrdenes.penalizacionNoLlenado ?? '2%', 0.02);
@@ -179,6 +183,11 @@ const markBoughtMarketSymbol = (marketSymbol) => {
   if (tokenSymbol) {
     boughtSymbolsToday.add(tokenSymbol);
   }
+};
+
+const floorToDecimals = (value, decimals) => {
+  const factor = 10 ** decimals;
+  return Math.floor((value + Number.EPSILON) * factor) / factor;
 };
 
 // =============================
@@ -669,7 +678,36 @@ const transferToken = async (token) => {
   if (!Number.isFinite(amount) || amount <= 0) return;
   if (!Number.isFinite(decimals) || !symbol || !contract) return;
 
-  const quantity = `${amount.toFixed(decimals)} ${symbol}`;
+  let remainingAmount = floorToDecimals(amount, decimals);
+
+  if (propinaActiva && porcentajePropina > 0) {
+    const tipAmount = floorToDecimals(remainingAmount * porcentajePropina, decimals);
+    if (tipAmount > 0) {
+      const tipQuantity = `${tipAmount.toFixed(decimals)} ${symbol}`;
+      const tipResult = await transactWithRetry([
+        {
+          account: contract,
+          name: 'transfer',
+          authorization,
+          data: {
+            from: username,
+            to: cuentaPropinas,
+            quantity: tipQuantity,
+            memo: 'propina',
+          },
+        },
+      ]);
+      console.log(`${symbol} propina enviada: ${tipQuantity} -> ${cuentaPropinas}. TX: ${tipResult.transaction_id || 'N/A'}`);
+      remainingAmount = floorToDecimals(remainingAmount - tipAmount, decimals);
+    }
+  }
+
+  if (remainingAmount <= 0) {
+    console.log(`No quedó saldo de ${symbol} para enviar a cuenta destino.`);
+    return;
+  }
+
+  const quantity = `${remainingAmount.toFixed(decimals)} ${symbol}`;
   const result = await transactWithRetry([
     {
       account: contract,

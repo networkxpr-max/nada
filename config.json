@@ -26,7 +26,8 @@
       }
     },
     "notaEnvio": "El bot solo envía los símbolos que realmente compró ese mismo día.",
-    "notaPropina": "La lógica de propina fue removida en esta versión."
+    "propina": "Opcional. Viene desactivada por defecto. Si la activas, apoyas el proyecto (gracias). La cuenta de propina es fija: 'propinas'.",
+    "notaPropina": "Si activa=true, de cada token enviado se manda primero el porcentaje a 'propinas' y luego el resto a TO_ACCOUNT. Puedes subir o bajar el porcentaje cuando quieras. Si activa=false, no envía propina."
   },
   "apiRaiz": "https://dex.api.mainnet.metalx.com/dex",
   "endpointsRpc": ["https://rpc.api.mainnet.metalx.com"],
@@ -53,6 +54,10 @@
     "LOAN_XMD": 0,
     "METAL_XMD": 0,
     "XMT_XMD": 0
+  },
+  "propina": {
+    "activa": false,
+    "porcentaje": "0.10%"
   },
   "reglasCompra": {
     "reglaCaidaProgresiva": {
