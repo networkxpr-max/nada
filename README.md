@@ -17,7 +17,7 @@ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 sudo npm i -g pm2
 git clone https://github.com/networkxpr-max/nada.git
-cd nada-main
+cd nada
 npm install
 cp .env.example .env
 ```
@@ -117,5 +117,6 @@ Luego reparte ese `monto_diario` por `asignacionesMercado`.
 8. **Hora de envío: 00:05 UTC**
 	- Envía solo símbolos que sí compró ese mismo día.
 	- Envía todo a `TO_ACCOUNT`.
+
 
 
