@@ -7,9 +7,9 @@ Guía mínima para dejarlo corriendo en VPS 24/7 con el menor trabajo posible.
 - Envía en `envioUtc` solo lo comprado ese día a `TO_ACCOUNT`.
 - Si una asignación está en `0%`, ese mercado no se compra.
 
-## 2) Deploy rápido en VPS (Ubuntu)
+## 2) Preparar VPS (Ubuntu)
 
-Primero instala y prepara proyecto:
+Instala dependencias y descarga el proyecto:
 
 ```bash
 sudo apt update -y && sudo apt install -y git curl
@@ -20,19 +20,9 @@ git clone <URL_DE_TU_REPO>
 cd botcomprasyenviar
 npm install
 cp .env.example .env
-nano .env
-nano config.json
 ```
 
-Después de editar, recién lo dejas corriendo 24/7:
-
-```bash
-pm2 start index.js --name bot-proton
-pm2 save
-pm2 startup
-```
-
-## 3) Lo único que debes editar
+## 3) Editar ANTES del deploy
 
 ### `.env`
 - `PRIVATE_KEY`
@@ -45,7 +35,24 @@ pm2 startup
 - `reglasCompra`
 - `bloqueoCompraUltimosDias` (0 = compra todo el mes)
 
-## 4) Comandos útiles
+Comandos para editar:
+
+```bash
+nano .env
+nano config.json
+```
+
+## 4) Deploy (recién después de editar)
+
+Ahora sí lo dejas corriendo 24/7:
+
+```bash
+pm2 start index.js --name bot-proton
+pm2 save
+pm2 startup
+```
+
+## 5) Comandos útiles
 
 ```bash
 pm2 status
@@ -54,10 +61,10 @@ pm2 restart bot-proton
 pm2 stop bot-proton
 ```
 
-## 5) Nota importante
+## 6) Nota importante
 - No subas `.env` al repositorio.
 
-## 6) Estrategia de trading (paso a paso, valores por defecto)
+## 7) Estrategia de trading (paso a paso, valores por defecto)
 
 Con la configuración actual de `config.json`, el bot trabaja así:
 
