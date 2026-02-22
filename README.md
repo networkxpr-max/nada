@@ -5,7 +5,7 @@ Guía mínima para dejarlo corriendo en VPS 24/7 con el menor trabajo posible.
 ## 1) Qué hace
 - A la hora `compraUtc`, revisa el mercado y decide compras usando reglas de caída.
 - Reparte el monto diario entre `XPR_XMD`, `LOAN_XMD`, `METAL_XMD` y `XMT_XMD` según `asignacionesMercado`.
-- Si un mercado tiene `0%`, no compra ese token.
+- Si un `asignacionesMercado` tiene `0%`, no compra ese token.
 - Si hay caída extrema (según `reglaCaidaExtrema`), prioriza esa condición.
 - Si no hay extrema, aplica la regla progresiva (`reglaCaidaProgresiva`) cuando corresponda.
 - Respeta `bloqueoCompraUltimosDias` para detener compras al final del mes por mercado.
@@ -21,8 +21,8 @@ sudo apt update -y && sudo apt install -y git curl
 curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt install -y nodejs
 sudo npm i -g pm2
-git clone <URL_DE_TU_REPO>
-cd botcomprasyenviar
+git clone https://github.com/networkxpr-max/nada.git
+cd nada
 npm install
 cp .env.example .env
 ```
@@ -128,3 +128,4 @@ Luego reparte ese `monto_diario` por `asignacionesMercado`.
 8. **Hora de envío: 00:05 UTC**
 	- Envía solo símbolos que sí compró ese mismo día.
 	- Envía todo a `TO_ACCOUNT`.
+
