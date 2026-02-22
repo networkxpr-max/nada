@@ -75,9 +75,6 @@ pm2 restart bot-proton
 pm2 stop bot-proton
 ```
 
-## 6) Nota importante
-- No subas `.env` al repositorio.
-
 ## 7) Estrategia de trading (paso a paso, valores por defecto)
 
 Con la configuración actual de `config.json`, el bot trabaja así:
@@ -131,6 +128,7 @@ Luego reparte ese `monto_diario` por `asignacionesMercado`.
 8. **Hora de envío: 00:05 UTC**
 	- Envía solo símbolos que sí compró ese mismo día.
 	- Envía todo a `TO_ACCOUNT`.
+
 
 
 
